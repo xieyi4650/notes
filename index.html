@@ -1,53 +1,492 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Welcome to Dhub’s documentation! &mdash; Dhub 0.1 documentation</title>
-    
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Dhub 0.1 documentation" href="#" />
-    <link rel="next" title="Ansible" href="ansible/index.html" />
-   
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to Dhub’s documentation! &mdash; Dhub 0.1 documentation</title>
+  
 
-  </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="ansible/index.html" title="Ansible"
-             accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">Dhub 0.1 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+  
+  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Dhub 0.1 documentation" href="#"/>
+        <link rel="next" title="Ansible" href="ansible/index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="#" class="icon icon-home"> Dhub
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="ansible/index.html">Ansible</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ansible/playbooks_intro.html">Playbooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_intro.html#hosts-and-users">Hosts and Users</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_intro.html#tasks-list">Tasks list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_intro.html#handlers-running-operations-on-change">Handlers: Running Operations On change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_intro.html#executing-a-playbook">Executing A Playbook</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_intro.html#ansible-pull">Ansible-Pull</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_intro.html#tips-and-tricks">Tips and Tricks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ansible/install.html">Ansible quick start</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ansible/install.html#id1">install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/install.html#inventory">Inventory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/install.html#try-it-out">Try it out</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/install.html#ad-hoc">Ad-Hoc 简单任务</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ansible/install.html#id2">执行命令</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ansible/install.html#id3">传输文件</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/install.html#id4">模块</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ansible/install.html#setup">setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ansible/install.html#user">user</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ansible/install.html#file">file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ansible/install.html#copy">copy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ansible/install.html#command">command</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ansible/install.html#shell">shell</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/install.html#playbook">Playbook 复杂任务</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ansible/playbooks_roles.html">Playbook Roles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_roles.html#task-include-files-and-encouraging-reuse">Task Include Files And Encouraging Reuse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_roles.html#roles">Roles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_roles.html#role-default-variables">Role Default Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_roles.html#role-dependencies">Role Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_roles.html#embedding-modules-in-roles">Embedding Modules In Roles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ansible/playbooks_best_practise.html">Playbook Best Practises</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_best_practise.html#content-organization">Content Organization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ansible/playbooks_best_practise.html#directory-layout">Directory Layout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ansible/playbooks_best_practise.html#use-dynamic-inventory-with-clouds">Use Dynamic Inventory With Clouds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ansible/playbooks_best_practise.html#how-to-differentiate-stage-vs-production">How to Differentiate Stage vs Production</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ansible/playbooks_best_practise.html#group-and-host-variables">Group And Host Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ansible/playbooks_best_practise.html#top-level-playbooks-are-separated-by-role">Top Level Playbooks Are Separated By Role</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ansible/playbooks_best_practise.html#task-and-handler-organization-for-a-role">Task And Handler Organization For A Role</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_best_practise.html#always-mention-the-state">Always Mention The State</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_best_practise.html#group-by-roles">Group By Roles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_best_practise.html#operating-system-and-distribution-variance">Operating System and Distribution Variance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_best_practise.html#bundling-ansible-modules-with-playbooks">Bundling Ansible Modules With Playbooks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_best_practise.html#whitespace-and-comments">Whitespace and Comments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_best_practise.html#always-name-tasks">Always Name Tasks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_best_practise.html#keep-it-simple">Keep It Simple</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_best_practise.html#version-control">Version Control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ansible/inventory_intro.html">Inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansible/dynamic_inventory.html">Dynamic Inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansible/playbooks_variables.html">Variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_variables.html#what-makes-a-valid-variable-name">What Makes A Valid Variable Name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_variables.html#variable-defined-in-inventory">Variable Defined in Inventory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_variables.html#varialbe-defined-in-a-playbook">Varialbe Defined in a Playbook</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_variables.html#varialbes-defined-from-include-files-and-roles">Varialbes defined from include files and roles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_variables.html#using-variables-about-jinja2">Using Variables: About Jinja2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_variables.html#yaml-quote">YAML Quote</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_variables.html#information-discoverd-from-systems-facts">Information Discoverd From Systems: Facts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_variables.html#turning-off-facts">Turning Off Facts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_variables.html#local-facts-facts-d">Local Facts(Facts.d)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_variables.html#fact-caching">Fact Caching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_variables.html#registered-variables">Registered Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_variables.html#accessing-complex-variable-data">Accessing Complex Variable Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_variables.html#magic-variables-and-how-to-access-information-about-other-hosts">Magic Variables, and How TO Access Information About Other Hosts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_variables.html#variable-file-separation">Variable File Separation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_variables.html#passing-variables-on-the-command-line">Passing Variables On The Command Line</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable">Variable Precedence: Where Should I Put A Variable ?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ansible/playbooks_conditionals.html">Conditionals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_conditionals.html#the-when-statement">The When Statement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_conditionals.html#applying-when-to-roles-and-includes">Applying &#8216;When&#8217; to roles and includes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_conditionals.html#conditional-imports">Conditional Imports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_conditionals.html#selecting-files-and-templates-based-on-variables">Selecting Files and Templates Based On Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/playbooks_conditionals.html#register-variables">Register Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ansible/ansible-module-doc.html">Ansible Module Docs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#acl">&gt; ACL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#add-host">&gt; ADD_HOST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#airbrake-deployment">&gt; AIRBRAKE_DEPLOYMENT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#apt">&gt; APT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#apt-key">&gt; APT_KEY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#apt-repository">&gt; APT_REPOSITORY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#arista-interface">&gt; ARISTA_INTERFACE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#arista-l2interface">&gt; ARISTA_L2INTERFACE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#arista-lag">&gt; ARISTA_LAG</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#arista-vlan">&gt; ARISTA_VLAN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#assemble">&gt; ASSEMBLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#assert">&gt; ASSERT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#at">&gt; AT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#authorized-key">&gt; AUTHORIZED_KEY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#bigip-monitor-http">&gt; BIGIP_MONITOR_HTTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#bigip-monitor-tcp">&gt; BIGIP_MONITOR_TCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#bigip-node">&gt; BIGIP_NODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#bigip-pool">&gt; BIGIP_POOL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#bigip-pool-member">&gt; BIGIP_POOL_MEMBER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#boundary-meter">&gt; BOUNDARY_METER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#bzr">&gt; BZR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#campfire">&gt; CAMPFIRE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#cloudformation">&gt; CLOUDFORMATION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#command">&gt; COMMAND</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#copy">&gt; COPY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#cron">&gt; CRON</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#datadog-event">&gt; DATADOG_EVENT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#debug">&gt; DEBUG</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#digital-ocean">&gt; DIGITAL_OCEAN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#django-manage">&gt; DJANGO_MANAGE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#dnsmadeeasy">&gt; DNSMADEEASY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#docker">&gt; DOCKER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#docker-image">&gt; DOCKER_IMAGE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#easy-install">&gt; EASY_INSTALL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#ec2">&gt; EC2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#ec2-ami">&gt; EC2_AMI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#ec2-eip">&gt; EC2_EIP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#ec2-elb">&gt; EC2_ELB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#ec2-elb-lb">&gt; EC2_ELB_LB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#ec2-facts">&gt; EC2_FACTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#ec2-group">&gt; EC2_GROUP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#ec2-key">&gt; EC2_KEY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#ec2-snapshot">&gt; EC2_SNAPSHOT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#ec2-tag">&gt; EC2_TAG</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#ec2-vol">&gt; EC2_VOL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#ec2-vpc">&gt; EC2_VPC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#ejabberd-user">&gt; EJABBERD_USER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#elasticache">&gt; ELASTICACHE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#facter">&gt; FACTER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#fail">&gt; FAIL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#fetch">&gt; FETCH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#file">&gt; FILE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#filesystem">&gt; FILESYSTEM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#fireball">&gt; FIREBALL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#firewalld">&gt; FIREWALLD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#flowdock">&gt; FLOWDOCK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#gc-storage">&gt; GC_STORAGE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#gce">&gt; GCE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#gce-lb">&gt; GCE_LB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#gce-net">&gt; GCE_NET</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#gce-pd">&gt; GCE_PD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#gem">&gt; GEM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#get-url">&gt; GET_URL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#git">&gt; GIT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#github-hooks">&gt; GITHUB_HOOKS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#glance-image">&gt; GLANCE_IMAGE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#group">&gt; GROUP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#group-by">&gt; GROUP_BY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#grove">&gt; GROVE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#hg">&gt; HG</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#hipchat">&gt; HIPCHAT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#homebrew">&gt; HOMEBREW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#hostname">&gt; HOSTNAME</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#htpasswd">&gt; HTPASSWD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#include-vars">&gt; INCLUDE_VARS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#ini-file">&gt; INI_FILE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#irc">&gt; IRC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#jabber">&gt; JABBER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#jboss">&gt; JBOSS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#kernel-blacklist">&gt; KERNEL_BLACKLIST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#keystone-user">&gt; KEYSTONE_USER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#lineinfile">&gt; LINEINFILE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#linode">&gt; LINODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#lvg">&gt; LVG</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#lvol">&gt; LVOL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#macports">&gt; MACPORTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#mail">&gt; MAIL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#modprobe">&gt; MODPROBE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#mongodb-user">&gt; MONGODB_USER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#monit">&gt; MONIT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#mount">&gt; MOUNT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#mqtt">&gt; MQTT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#mysql-db">&gt; MYSQL_DB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#mysql-replication">&gt; MYSQL_REPLICATION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#mysql-user">&gt; MYSQL_USER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#mysql-variables">&gt; MYSQL_VARIABLES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#nagios">&gt; NAGIOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#netscaler">&gt; NETSCALER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#newrelic-deployment">&gt; NEWRELIC_DEPLOYMENT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#nova-compute">&gt; NOVA_COMPUTE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#nova-keypair">&gt; NOVA_KEYPAIR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#npm">&gt; NPM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#ohai">&gt; OHAI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#open-iscsi">&gt; OPEN_ISCSI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#openbsd-pkg">&gt; OPENBSD_PKG</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#openvswitch-bridge">&gt; OPENVSWITCH_BRIDGE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#openvswitch-port">&gt; OPENVSWITCH_PORT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#opkg">&gt; OPKG</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#osx-say">&gt; OSX_SAY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#ovirt">&gt; OVIRT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#pacman">&gt; PACMAN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#pagerduty">&gt; PAGERDUTY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#pause">&gt; PAUSE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#ping">&gt; PING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#pingdom">&gt; PINGDOM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#pip">&gt; PIP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#pkgin">&gt; PKGIN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#pkgng">&gt; PKGNG</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#pkgutil">&gt; PKGUTIL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#portinstall">&gt; PORTINSTALL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#postgresql-db">&gt; POSTGRESQL_DB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#postgresql-privs">&gt; POSTGRESQL_PRIVS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#postgresql-user">&gt; POSTGRESQL_USER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#quantum-floating-ip">&gt; QUANTUM_FLOATING_IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#quantum-network">&gt; QUANTUM_NETWORK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#quantum-router">&gt; QUANTUM_ROUTER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#quantum-subnet">&gt; QUANTUM_SUBNET</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#rabbitmq-parameter">&gt; RABBITMQ_PARAMETER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#rabbitmq-plugin">&gt; RABBITMQ_PLUGIN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#rabbitmq-policy">&gt; RABBITMQ_POLICY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#rabbitmq-user">&gt; RABBITMQ_USER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#rabbitmq-vhost">&gt; RABBITMQ_VHOST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#raw">&gt; RAW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#rax">&gt; RAX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#rax-clb">&gt; RAX_CLB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#rax-clb-nodes">&gt; RAX_CLB_NODES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#rax-dns-record">&gt; RAX_DNS_RECORD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#rax-facts">&gt; RAX_FACTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#rax-files">&gt; RAX_FILES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#rax-files-objects">&gt; RAX_FILES_OBJECTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#rax-keypair">&gt; RAX_KEYPAIR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#rax-network">&gt; RAX_NETWORK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#rax-queue">&gt; RAX_QUEUE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#rds">&gt; RDS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#redhat-subscription">&gt; REDHAT_SUBSCRIPTION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#redis">&gt; REDIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#rhn-channel">&gt; RHN_CHANNEL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#rhn-register">&gt; RHN_REGISTER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#riak">&gt; RIAK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#route53">&gt; ROUTE53</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#rpm-key">&gt; RPM_KEY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#s3">&gt; S3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#script">&gt; SCRIPT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#seboolean">&gt; SEBOOLEAN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#selinux">&gt; SELINUX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#service">&gt; SERVICE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#set-fact">&gt; SET_FACT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#setup">&gt; SETUP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#shell">&gt; SHELL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#slurp">&gt; SLURP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#stat">&gt; STAT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#subversion">&gt; SUBVERSION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#supervisorctl">&gt; SUPERVISORCTL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#svr4pkg">&gt; SVR4PKG</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#swdepot">&gt; SWDEPOT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#synchronize">&gt; SYNCHRONIZE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#sysctl">&gt; SYSCTL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#template">&gt; TEMPLATE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#unarchive">&gt; UNARCHIVE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#uri">&gt; URI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#urpmi">&gt; URPMI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#user">&gt; USER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#virt">&gt; VIRT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#wait-for">&gt; WAIT_FOR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#xattr">&gt; XATTR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#yum">&gt; YUM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#zfs">&gt; ZFS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#zypper">&gt; ZYPPER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansible/ansible-module-doc.html#zypper-repository">&gt; ZYPPER_REPOSITORY</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="docker/index.html">Docker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="docker/docker_intro.html">Docker入门 &#8211; 介绍</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_intro.html#id1">Docker特征</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_intro.html#id2">Docker组件和元素</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_intro.html#id3">如何把它们放在一起</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="docker/docker_command.html">Docker入门 &#8211; 命令</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-info">docker info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-pull">docker pull</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-run">docker run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-logs">docker logs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-start-stop-restart">docker start &amp; stop &amp; restart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-commit">docker commit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-images">docker images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-search">docker search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-history">docker history</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-push">docker push</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-build">docker build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-attach">docker attach</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-diff">docker diff</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-events">docker events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-import">docker import</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-export">docker export</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-cp">docker cp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-login">docker login</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-inspect">docker inspect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-kill">docker kill</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-rmi">docker rmi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-wait">docker wait</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-load">docker load</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_command.html#docker-save">docker save</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="docker/docker_dockerfile.html">Dockerfile</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_dockerfile.html#from">FROM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_dockerfile.html#maintainer">MAINTAINER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_dockerfile.html#run">RUN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_dockerfile.html#add">ADD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_dockerfile.html#cmd">CMD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_dockerfile.html#expose">EXPOSE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_dockerfile.html#entrypoint">ENTRYPOINT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_dockerfile.html#workdir">WORKDIR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_dockerfile.html#env">ENV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_dockerfile.html#user">USER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_dockerfile.html#volume">VOLUME</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_dockerfile.html#example">example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="docker/dockerfile_best_practices_take.html">Dockerfile最佳实践</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="docker/dockerfile_best_practices_take.html#id1">使用缓存</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/dockerfile_best_practices_take.html#id2">使用标签</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/dockerfile_best_practices_take.html#id3">公开端口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/dockerfile_best_practices_take.html#cmd-entrypoint">CMD ENTRYPOINT语法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/dockerfile_best_practices_take.html#id4">容器是短暂的</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/dockerfile_best_practices_take.html#dockerignore">.dockerignore 文件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/dockerfile_best_practices_take.html#id5">不要在构建中升级版本</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/dockerfile_best_practices_take.html#id6">每个容器只运行一个进程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/dockerfile_best_practices_take.html#id7">最小化层数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/dockerfile_best_practices_take.html#id8">使用小型基础镜像</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/dockerfile_best_practices_take.html#id9">使用特定标签</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/dockerfile_best_practices_take.html#id10">多行参数顺序</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="docker/dockerfile_best_practices_take.html#id11">Dockerfile指令最佳实践</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="docker/dockerfile_best_practices_take.html#from">FROM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/dockerfile_best_practices_take.html#run">RUN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/dockerfile_best_practices_take.html#cmd">CMD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/dockerfile_best_practices_take.html#add-copy">ADD COPY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/dockerfile_best_practices_take.html#volume">VOLUME</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/dockerfile_best_practices_take.html#user">USER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/dockerfile_best_practices_take.html#workdir">WORKDIR</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="docker/docker_in_action.html">Docker 案例 &#8211; 搭建工作流</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_in_action.html#id1">流程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_in_action.html#id2">概念</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_in_action.html#why">Why ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_in_action.html#id5">配置Docker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_in_action.html#compose-up">Compose UP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker/docker_in_action.html#id6">构建并运行</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="docker/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="iptables/index.html">iptables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="iptables/iptables.html">iptables 入门</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="iptables/iptables.html#id2">iptables 介绍</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iptables/iptables.html#id3">iptables 的结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iptables/iptables.html#id4">iptables 的工作流程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iptables/iptables.html#filter">filter 表详解</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iptables/iptables.html#id5">iptables 命令参考</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iptables/iptables.html#id6">iptables 常见命令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iptables/iptables.html#id7">如何正确配置iptables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iptables/iptables.html#id8">使用iptables 抵御常见攻击</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="iptables/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="screen/index.html">screen  用法简介</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="screen/index.html#id1">一、screen功能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="screen/index.html#id2">二、screen参数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="screen/index.html#id3">三、screen 多窗口管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="screen/index.html#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">Dhub</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+      
+    <li>Welcome to Dhub&#8217;s documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/index.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
             
   <div class="section" id="welcome-to-dhub-s-documentation">
 <h1>Welcome to Dhub&#8217;s documentation!<a class="headerlink" href="#welcome-to-dhub-s-documentation" title="Permalink to this headline">¶</a></h1>
@@ -428,57 +867,66 @@
 
 
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="#">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Welcome to Dhub&#8217;s documentation!</a></li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
-</ul>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ansible/index.html" class="btn btn-neutral float-right" title="Ansible" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
 
-  <h4>Next topic</h4>
-  <p class="topless"><a href="ansible/index.html"
-                        title="next chapter">Ansible</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/index.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Fuyuan.Chu.
     </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2015, Fuyuan.Chu.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
-      
-      |
-      <a href="_sources/index.txt"
-          rel="nofollow">Page source</a></li>
-    </div>
 
-    
+    </section>
 
-    
-  </body>
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>
