@@ -15,11 +15,3 @@ Docker
    dockerfile_best_practices_take
    docker_in_action
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
