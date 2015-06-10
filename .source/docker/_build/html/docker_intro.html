@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Docker入门 – 介绍 &mdash; docker 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="docker 0.1 documentation" href="index.html" />
+    <link rel="next" title="Docker 案例 – 搭建工作流" href="docker_in_action.html" />
+    <link rel="prev" title="Welcome to docker’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="index.html">
+          <span>docker 0.1 documentation</span></a></h1>
+        <h2 class="heading"><span>Docker入门 – 介绍</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="index.html">Welcome to docker&#8217;s documentation!</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="docker_in_action.html">Docker 案例 &#8211; 搭建工作流</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="docker">
+<span id="docker-intro"></span><h1>Docker入门 &#8211; 介绍<a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre>Build once, configure once and run anywhere.
+</pre></div>
+</div>
+</div></blockquote>
+<div class="section" id="id1">
+<h2>Docker特征<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>速度飞快以及优雅的隔离框架</li>
+<li>物美价廉</li>
+<li>CPU/内存的低消耗</li>
+<li>快速开/关机</li>
+<li>跨云计算基础构架</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id2">
+<h2>Docker组件和元素<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>三个组件</p>
+<blockquote>
+<div><ul class="simple">
+<li>Docker Client - 用户界面</li>
+<li>Docker Daemon - 运行于主机上，处理服务请求</li>
+<li>Docker Index - 中央registry，支持拥有公有与私有访问权限的Docker容器镜像的备份</li>
+</ul>
+</div></blockquote>
+<p>三个基本要素</p>
+<blockquote>
+<div><ul class="simple">
+<li>Docker Containers - 负责应用程序的运行，包括操作系统，用户添加的文件以及元数据</li>
+<li>Docker Images - 只读模板，用来运行Docker容器</li>
+<li>DockerFile - 文件指令集，用来说明如何自动创建Docker镜像</li>
+</ul>
+</div></blockquote>
+<p>Docker使用一下操作系统的功能来提高容器效率</p>
+<blockquote>
+<div><ul class="simple">
+<li>NameSpace - 充当隔离的第一级，确保一个容器中运行一个进程而且不能看到或影响容器外的其他进程</li>
+<li>Control Groups - LXC的重要组成部分，具有资源核算与限制的关键功能</li>
+<li>UnionFS - 作为容器的构建块，支持Docker的轻量级以及速度快的特性，带有用户层的文件系统。</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id3">
+<h2>如何把它们放在一起<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>运行任何应用程序，都需要有两个基本步骤:</p>
+<ol class="arabic">
+<li><p class="first">构建一个镜像</p>
+<p>Docker image 是一个构建容器的只读模板，包含了容器启动所需要的所有信息，包括运行程序和配置数据。每个镜像都源于一个基本的镜像，随后根据Dockerfile中的指令创建模板。对于每个指令，在镜像上创建一个新的层面。</p>
+</li>
+<li><p class="first">运行容器</p>
+<p>运行容器源于第一步创建的镜像。当容器被启动后，一个读写层会被添加到镜像的顶层。当分配到合适的网络和IP地址后，需要的应用程序就可以在容器中运行了。</p>
+</li>
+</ol>
+</div></blockquote>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="index.html">Welcome to docker&#8217;s documentation!</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="docker_in_action.html">Docker 案例 &#8211; 搭建工作流</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2015, chufuyuan.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

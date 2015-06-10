@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>reStructuredText Hellworld &mdash; screen 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="screen 0.1.0 documentation" href="index.html" />
+    <link rel="prev" title="screen 用法简介" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="index.html" title="screen 用法简介"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">screen 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="restructuredtext-hellworld">
+<h1>reStructuredText Hellworld<a class="headerlink" href="#restructuredtext-hellworld" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>标题上下用连续等号分隔(符号的数量必须大于标题文本长度,且上下符号数目一致)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>这里就是副标题<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h4>一级标题<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id4">
+<h5>1.1、二级标题<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h5>
+<div class="section" id="id5">
+<h6>1.1.1、三级标题<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h6>
+<div class="section" id="id6">
+<h7>1.1.1.1、四级标题<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h7>
+<p>这个是在四级标题下的一个段落。
+段落内的换行会被忽略。下面通过空行来开始第二个段落。</p>
+<p>这是第二个段落。这里有个换行
+这是第二行，但这个换行会被忽略掉。</p>
+<p>这个是第三段。</p>
+<blockquote>
+<div>mkdir ~/backup
+cp ~/workbench ~/backup -r</div></blockquote>
+<p>利用缩进表达引用的文字。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h5>1.2 行内标记<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h5>
+<p><em>这里是斜体</em>
+<strong>这里是粗体</strong></p>
+<p><a class="reference external" href="http://www.baidu.com">HomePage</a>
+脚注[1]</p>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>这里添加详细的脚注内容</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id9">
+<h4>2.编号<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id10">
+<h5>2.1项目编号<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h5>
+<p>项目编号之前的段落下面需要一个空行</p>
+<ul class="simple">
+<li>1st.之后再开始项目的内容</li>
+<li>2nd.项目符号后必须跟一个空格</li>
+<li>3rd.一组项目前后要加上空行，和段落隔开</li>
+<li>4th.做bullet的符号有* - +等，多行的情况下，
+必须和上一行的文字对齐</li>
+</ul>
+<p>这是项目编号后面的段落。</p>
+</div>
+<div class="section" id="id11">
+<h5>2.2数字编号<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h5>
+<p>数字编号的规则和项目编号类似</p>
+<ol class="arabic simple">
+<li>只不过用数字代替项目符号</li>
+<li>格式是数字后跟一个&#8217;.&#8217;和一个空格</li>
+<li>可以用#替代数字实现自动编号</li>
+</ol>
+</div>
+</div>
+<div class="section" id="id12">
+<h4>3.表格<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<p>表格使用短划线、管道符、加号等绘制,
+并且可以实现合并行，合并列。</p>
+<p>单元格里的内容可以是项目编号等格式块。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head" colspan="3"><em>标题行</em></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td><strong>2</strong></td>
+<td>3</td>
+</tr>
+<tr class="row-odd"><td colspan="2">4</td>
+<td rowspan="2"><a class="reference external" href="http://weibo.com">5</a></td>
+</tr>
+<tr class="row-even"><td colspan="2" rowspan="2"><ul class="first last simple">
+<li>a</li>
+<li>b</li>
+<li>c</li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>7</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id14">
+<h4>4.简单表格<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="31%" />
+<col width="31%" />
+<col width="38%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head" colspan="2">Inputs</th>
+<th class="head">Output</th>
+</tr>
+<tr class="row-even"><th class="head">A</th>
+<th class="head">B</th>
+<th class="head">A or B</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="row-even"><td>True</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="row-odd"><td>False</td>
+<td>True</td>
+<td>True</td>
+</tr>
+<tr class="row-even"><td>True</td>
+<td>True</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id15">
+<h4>5.指令<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">reStructuredText Hellworld</a><ul>
+<li><a class="reference internal" href="#id1">标题上下用连续等号分隔(符号的数量必须大于标题文本长度,且上下符号数目一致)</a><ul>
+<li><a class="reference internal" href="#id2">这里就是副标题</a><ul>
+<li><a class="reference internal" href="#id3">一级标题</a><ul>
+<li><a class="reference internal" href="#id4">1.1、二级标题</a><ul>
+<li><a class="reference internal" href="#id5">1.1.1、三级标题</a><ul>
+<li><a class="reference internal" href="#id6">1.1.1.1、四级标题</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">1.2 行内标记</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id9">2.编号</a><ul>
+<li><a class="reference internal" href="#id10">2.1项目编号</a></li>
+<li><a class="reference internal" href="#id11">2.2数字编号</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id12">3.表格</a></li>
+<li><a class="reference internal" href="#id14">4.简单表格</a></li>
+<li><a class="reference internal" href="#id15">5.指令</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">screen  用法简介</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/helloworld.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="index.html" title="screen 用法简介"
+             >previous</a> |</li>
+        <li><a href="index.html">screen 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Alex.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Dockerfile &mdash; Dhub 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Dhub 0.1 documentation" href="../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Dhub 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="dockerfile">
+<span id="docker-dockerfile"></span><h1>Dockerfile<a class="headerlink" href="#dockerfile" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p>Dockerfile包含创建镜像所需要的全部指令。基于在Dockerfile中的指令，我们可以使用Docker build命令来创建镜像。通过减少镜像和容器的创建过程来简化部署。</p>
+<p>Dockerfile支持的语法命令如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>INSTRUCTION argument
+</pre></div>
+</div>
+<p>指令不区分大小写，但是命名约定为全部大写。</p>
+</div></blockquote>
+<div class="section" id="from">
+<h2>FROM<a class="headerlink" href="#from" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>所有Dockerfile必须以 <code class="docutils literal"><span class="pre">FROM</span></code> 命令开始。 <code class="docutils literal"><span class="pre">FROM</span></code> 命令指定镜像基于哪个基础镜像创建。接下来的命令也会基于这个基础镜像。可以使用多次FROM命令，表示会创建多个镜像。</p>
+<div class="highlight-python"><div class="highlight"><pre>FROM &lt;image&gt;
+FROM &lt;image&gt;:&lt;tag&gt;
+FROM &lt;image&gt;@&lt;digest&gt;
+</pre></div>
+</div>
+<p>例如 <code class="docutils literal"><span class="pre">FROM</span> <span class="pre">ubuntu</span></code> 这样的指令告诉我们，新的镜像将基于Ubuntu的景象来构建。</p>
+</div></blockquote>
+</div>
+<div class="section" id="maintainer">
+<h2>MAINTAINER<a class="headerlink" href="#maintainer" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>设置该镜像的作者:</p>
+<div class="highlight-python"><div class="highlight"><pre>MAINTAINER &lt;author name&gt;
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="run">
+<h2>RUN<a class="headerlink" href="#run" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>在shell或exec环境下执行的命令。会在新创建的镜像上添加新的层面，接下来提交的镜像用在Dockerfile的下一条指令中。</p>
+<div class="highlight-python"><div class="highlight"><pre>RUN &lt;command&gt;   shell form
+RUN [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]  exec form
+</pre></div>
+</div>
+<p>exec形式没有变量扩展，如 <code class="docutils literal"><span class="pre">RUN</span> <span class="pre">[&quot;echo&quot;,</span> <span class="pre">&quot;$HOME&quot;]</span></code> 不会展开 $HOME,需要改成 <code class="docutils literal"><span class="pre">RUN</span> <span class="pre">[&quot;sh&quot;,</span> <span class="pre">&quot;-c&quot;,</span> <span class="pre">&quot;echo&quot;,</span> <span class="pre">&quot;$HOME&quot;]</span></code></p>
+</div></blockquote>
+</div>
+<div class="section" id="add">
+<h2>ADD<a class="headerlink" href="#add" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>复制文件指令，将URL或者启动配置上下文中的一个文件复制到容器内的位置:</p>
+<div class="highlight-python"><div class="highlight"><pre>ADD &lt;src&gt; &lt;destination&gt;
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="cmd">
+<h2>CMD<a class="headerlink" href="#cmd" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>提供了容器默认的执行命令。Dockerfile只允许使用一次CMD指令，使用多个CMD会抵消之前所有的指令，只有最后一个指令失效:</p>
+<div class="highlight-python"><div class="highlight"><pre>CMD [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]
+
+CMD [&quot;param1&quot;, &quot;param2&quot;]
+
+CMD command param1 param2
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">CMD [&#8220;executable&#8221;, &#8220;param1&#8221;, &#8220;param2&#8221;] 是推荐使用的格式。exec form被解析成JSON数组，因此不能使用单引号，要使用双引号。</p>
+</div>
+</div>
+<div class="section" id="expose">
+<h2>EXPOSE<a class="headerlink" href="#expose" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>指定容器在运行时监听的端口</p>
+<div class="highlight-python"><div class="highlight"><pre>EXPOSE &lt;port&gt;
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="entrypoint">
+<h2>ENTRYPOINT<a class="headerlink" href="#entrypoint" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>配置给容器一个可执行的命令，这意味着每次使用镜像创建容器时一个特定的应用程序可以被设置为默认程序。类似与CMD，Docker只允许一个ENTRYPOINT，多个ENTRYPOINT会抵消之前所有的指令。</p>
+<div class="highlight-python"><div class="highlight"><pre>ENTRYPOINT [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]
+
+ENTRYPOINT command param1 param2
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="workdir">
+<h2>WORKDIR<a class="headerlink" href="#workdir" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>指定RUN、CMD和ENTRYPOINT命令的工作目录。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">WORKDIR</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">workdir</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="env">
+<h2>ENV<a class="headerlink" href="#env" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>设置环境变量，使用键值对，增加运行程序的灵活性。</p>
+<div class="highlight-python"><div class="highlight"><pre>ENV &lt;key&gt; &lt;value&gt;
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="user">
+<h2>USER<a class="headerlink" href="#user" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>镜像正在运行时设置一个UID。</p>
+<div class="highlight-python"><div class="highlight"><pre>USER &lt;uid&gt;
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="volume">
+<h2>VOLUME<a class="headerlink" href="#volume" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>授权容器访问主机上的目录。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">VOLUME</span> <span class="p">[</span><span class="s">&quot;/data&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="example">
+<h2>example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre># Nginx
+#
+# VERSION               0.0.1
+
+FROM      ubuntu
+MAINTAINER Victor Vieux &lt;victor@docker.com&gt;
+
+LABEL Description=&quot;This image is used to start the foobar executable&quot; Vendor=&quot;ACME Products&quot; Version=&quot;1.0&quot;
+RUN apt-get update &amp;&amp; apt-get install -y inotify-tools nginx apache2 openssh-server
+
+# Firefox over VNC
+#
+# VERSION               0.3
+
+FROM ubuntu
+
+# Install vnc, xvfb in order to create a &#39;fake&#39; display and firefox
+RUN apt-get update &amp;&amp; apt-get install -y x11vnc xvfb firefox
+RUN mkdir ~/.vnc
+# Setup a password
+RUN x11vnc -storepasswd 1234 ~/.vnc/passwd
+# Autostart firefox (might not be the best way, but it does the trick)
+RUN bash -c &#39;echo &quot;firefox&quot; &gt;&gt; /.bashrc&#39;
+
+EXPOSE 5900
+CMD    [&quot;x11vnc&quot;, &quot;-forever&quot;, &quot;-usepw&quot;, &quot;-create&quot;]
+
+# Multiple images example
+#
+# VERSION               0.1
+
+FROM ubuntu
+RUN echo foo &gt; bar
+# Will output something like ===&gt; 907ad6c2736f
+
+FROM ubuntu
+RUN echo moo &gt; oink
+# Will output something like ===&gt; 695d7793cbe4
+
+# You᾿ll now have two images, 907ad6c2736f with /bar, and 695d7793cbe4 with
+# /oink.
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<ol class="last arabic simple">
+<li><a class="reference internal" href="dockerfile_best_practices_take.html#dockerfile-best-practices-take"><span>Dockerfile best practices</span></a></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Dockerfile</a><ul>
+<li><a class="reference internal" href="#from">FROM</a></li>
+<li><a class="reference internal" href="#maintainer">MAINTAINER</a></li>
+<li><a class="reference internal" href="#run">RUN</a></li>
+<li><a class="reference internal" href="#add">ADD</a></li>
+<li><a class="reference internal" href="#cmd">CMD</a></li>
+<li><a class="reference internal" href="#expose">EXPOSE</a></li>
+<li><a class="reference internal" href="#entrypoint">ENTRYPOINT</a></li>
+<li><a class="reference internal" href="#workdir">WORKDIR</a></li>
+<li><a class="reference internal" href="#env">ENV</a></li>
+<li><a class="reference internal" href="#user">USER</a></li>
+<li><a class="reference internal" href="#volume">VOLUME</a></li>
+<li><a class="reference internal" href="#example">example</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/docker/docker_dockerfile.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Fuyuan.Chu.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      
+      |
+      <a href="../_sources/docker/docker_dockerfile.txt"
+          rel="nofollow">Page source</a></li>
+    </div>
+
+    
+
+    
+  </body>
+</html>

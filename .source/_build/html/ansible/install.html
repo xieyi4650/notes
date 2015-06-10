@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Ansible quick start &mdash; Dhub 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Dhub 0.1 documentation" href="../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Dhub 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ansible-quick-start">
+<span id="install"></span><h1>Ansible quick start<a class="headerlink" href="#ansible-quick-start" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>install<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre>yum install ansible # RHEL/CentOS/Fedora
+
+apt-get install ansible # Debian/Ubuntu
+
+emerge -avt ansible  # Gentoo/Funtoo
+
+pip install ansible # will also install  paramiko PyYAML jinja2
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="inventory">
+<h2>Inventory<a class="headerlink" href="#inventory" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>Inventory文件用来定义需要管理的主机，默认位置在 <code class="docutils literal"><span class="pre">/etc/ansible/hosts</span></code> , 使用 <code class="docutils literal"><span class="pre">-i</span></code> 选项指定非默认位置。</p>
+<p>被管理的机器通过IP或域名指定，未分组的机器保留在hosts文件的顶部，分组使用 <code class="docutils literal"><span class="pre">[]</span></code> 指定，同时支持嵌套:</p>
+<div class="highlight-python"><div class="highlight"><pre>[miss]
+dn0[1:3]
+
+[lvs:children]
+web
+db
+</pre></div>
+</div>
+<p>在配置中可以为主机设定端口、默认用户、私钥等参数:</p>
+<div class="highlight-python"><div class="highlight"><pre>[db]
+orcl01.example.com ansible_ssh_user=oracle
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="try-it-out">
+<h2>Try it out<a class="headerlink" href="#try-it-out" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p><code class="docutils literal"><span class="pre">ansible</span> <span class="pre">-i</span> <span class="pre">hosts</span> <span class="pre">all</span> <span class="pre">-m</span> <span class="pre">ping</span> <span class="pre">-u</span> <span class="pre">root</span> <span class="pre">-f</span> <span class="pre">3</span></code></p>
+<div class="highlight-python"><div class="highlight"><pre>*. -i 指定了inventory文件，当前目录下的hosts文件，不指定则使用默认位置。
+
+*. all 针对hosts定义的所有主机执行，可以指定组名或者模式
+
+*. -m 指定所使用的模块，不指定则使用默认模块 command
+
+*. -u 指定远端机器的用户
+
+*. -a 指定传给模块的参数，Ansible以键值对(Key-Value)的方式接受参数，并以JSON格式返回结果。
+
+*. -f 同一时间只在指定数量的机器上执行
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="ad-hoc">
+<h2>Ad-Hoc 简单任务<a class="headerlink" href="#ad-hoc" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>执行命令<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p><code class="docutils literal"><span class="pre">ansible</span> <span class="pre">-m</span> <span class="pre">raw</span> <span class="pre">-a</span> <span class="pre">'yum</span> <span class="pre">install</span> <span class="pre">-y</span> <span class="pre">python-simplejson'</span></code></p>
+<p>可以在对方机器上python版本为2.4或者其他没有装python的设备上使用raw模块执行命令。类似于直接在远端执行 shell命令。</p>
+<p><code class="docutils literal"><span class="pre">ansible-doc</span> <span class="pre">raw</span></code></p>
+</div></blockquote>
+</div>
+<div class="section" id="id3">
+<h3>传输文件<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><code class="docutils literal"><span class="pre">ansible</span> <span class="pre">all</span> <span class="pre">-m</span> <span class="pre">copy</span> <span class="pre">-a</span> <span class="pre">&quot;src=/etc/hosts</span> <span class="pre">dest=/tmp/hosts&quot;</span></code></div></blockquote>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>模块<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="setup">
+<h3>setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">ansible</span> <span class="pre">-i</span> <span class="pre">hosts</span> <span class="pre">-m</span> <span class="pre">setup</span> <span class="pre">-a</span> <span class="pre">'filter=&quot;ansible_processor_count&quot;'</span></code>
+可以获取主机的系统信息，并将其保存在内置变量中方便其他模块进行引用。</p>
+</div>
+<div class="section" id="user">
+<h3>user<a class="headerlink" href="#user" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">ansible</span> <span class="pre">-i</span> <span class="pre">hosts</span> <span class="pre">-m</span> <span class="pre">user</span> <span class="pre">-a</span> <span class="pre">'name=&quot;test&quot;</span> <span class="pre">shell=&quot;/bin/false&quot;'</span></code></p>
+</div>
+<div class="section" id="file">
+<h3>file<a class="headerlink" href="#file" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">ansible</span> <span class="pre">-i</span> <span class="pre">hosts</span> <span class="pre">-m</span> <span class="pre">file</span> <span class="pre">-a</span> <span class="pre">'path=/etc/fstab'</span></code></p>
+<p><code class="docutils literal"><span class="pre">ansible</span> <span class="pre">-i</span> <span class="pre">hosts</span> <span class="pre">-m</span> <span class="pre">file</span> <span class="pre">-a</span> <span class="pre">'path=/tmp/ksops</span> <span class="pre">state=directory</span> <span class="pre">mode=0755</span> <span class="pre">owner=nobody'</span></code></p>
+<p><code class="docutils literal"><span class="pre">ansible</span> <span class="pre">-i</span> <span class="pre">hosts</span> <span class="pre">-m</span> <span class="pre">file</span> <span class="pre">-a</span> <span class="pre">'path=/tmp/file</span> <span class="pre">state=absent'</span></code></p>
+</div>
+<div class="section" id="copy">
+<h3>copy<a class="headerlink" href="#copy" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">ansible</span> <span class="pre">-i</span> <span class="pre">hosts</span> <span class="pre">-m</span> <span class="pre">copy</span> <span class="pre">-a</span> <span class="pre">'src=vimrc</span> <span class="pre">dest=/root/.vimrc</span> <span class="pre">mode=644</span> <span class="pre">owner=root'</span></code></p>
+</div>
+<div class="section" id="command">
+<h3>command<a class="headerlink" href="#command" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">ansible</span> <span class="pre">-i</span> <span class="pre">hosts</span> <span class="pre">-m</span> <span class="pre">command</span> <span class="pre">-a</span> <span class="pre">'rm</span> <span class="pre">-rfv</span> <span class="pre">/tmp/test</span> <span class="pre">removes=/tmp/test'</span></code></p>
+<p><code class="docutils literal"><span class="pre">ansible</span> <span class="pre">-i</span> <span class="pre">hosts</span> <span class="pre">-m</span> <span class="pre">command</span> <span class="pre">-a</span> <span class="pre">'touch</span> <span class="pre">/tmp/test</span> <span class="pre">creates=/tmp/test'</span></code></p>
+<p>使用command模块无法通过返回值判断命令是否执行成功，如果定义了creates属性，当文件存在时，不执行创建文件的命令，如果定义了removes属性，当文件不存在时，不执行删除文件的命令。</p>
+</div>
+<div class="section" id="shell">
+<h3>shell<a class="headerlink" href="#shell" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">ansible</span> <span class="pre">-i</span> <span class="pre">hosts</span> <span class="pre">-m</span> <span class="pre">shell</span> <span class="pre">-a</span> <span class="pre">'/home/monitor.sh</span> <span class="pre">&gt;</span> <span class="pre">/home/applog/test.log</span> <span class="pre">creates=/home/applog/test.log'</span></code></p>
+<p>shell模块提供了对重定向、管道、后台任务等特性的支持。</p>
+</div>
+</div>
+<div class="section" id="playbook">
+<h2>Playbook 复杂任务<a class="headerlink" href="#playbook" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>创建新用户:</p>
+<div class="highlight-python"><div class="highlight"><pre>cat user.yml
+
+---
+- name:create user  #Playbook名称
+  hosts:db    #起作用的主机组
+  user:root   #以指定用户执行
+  gather_facts:false  #收集远端机器的相关信息
+
+  vars:     #定义变量 user
+  - user: &quot;toy&quot;
+  tasks:    #指定要执行的任务
+  - name:create {{user}} on miss
+    user:name=&quot;{{user}}&quot;
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Ansible quick start</a><ul>
+<li><a class="reference internal" href="#id1">install</a></li>
+<li><a class="reference internal" href="#inventory">Inventory</a></li>
+<li><a class="reference internal" href="#try-it-out">Try it out</a></li>
+<li><a class="reference internal" href="#ad-hoc">Ad-Hoc 简单任务</a><ul>
+<li><a class="reference internal" href="#id2">执行命令</a></li>
+<li><a class="reference internal" href="#id3">传输文件</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">模块</a><ul>
+<li><a class="reference internal" href="#setup">setup</a></li>
+<li><a class="reference internal" href="#user">user</a></li>
+<li><a class="reference internal" href="#file">file</a></li>
+<li><a class="reference internal" href="#copy">copy</a></li>
+<li><a class="reference internal" href="#command">command</a></li>
+<li><a class="reference internal" href="#shell">shell</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#playbook">Playbook 复杂任务</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/ansible/install.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Fuyuan.Chu.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      
+      |
+      <a href="../_sources/ansible/install.txt"
+          rel="nofollow">Page source</a></li>
+    </div>
+
+    
+
+    
+  </body>
+</html>

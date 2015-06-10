@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Docker入门 – 命令 &mdash; docker 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="docker 0.1 documentation" href="index.html" />
+    <link rel="next" title="Dockerfile" href="docker_dockerfile.html" />
+    <link rel="prev" title="Docker入门 – 介绍" href="docker_intro.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="index.html">
+          <span>docker 0.1 documentation</span></a></h1>
+        <h2 class="heading"><span>Docker入门 – 命令</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="docker_intro.html">Docker入门 &#8211; 介绍</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="docker_dockerfile.html">Dockerfile</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="docker">
+<span id="docker-command"></span><h1>Docker入门 &#8211; 命令<a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="docker-info">
+<span id="id1"></span><h2>docker info<a class="headerlink" href="#docker-info" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>通过运行 <tt class="docutils literal"><span class="pre">docker</span> <span class="pre">info</span></tt> 检测docker安装是否正确</p>
+<div class="highlight-python"><div class="highlight"><pre># docker info
+Containers: 16
+Images: 3
+Storage Driver: aufs
+ Root Dir: /var/lib/docker/aufs
+  Dirs: 35
+  Execution Driver: native-0.2
+  Kernel Version: 3.13.0-36-generic
+  Operating System: Ubuntu 14.04.1 LTS
+  CPUs: 4
+  Total Memory: 3.729 GiB
+  Name: nn
+  ID: NZE2:4R7O:GGXU:WYP3:PC4W:3G23:CSM4:XIRH:RAIB:GRV2:HKS2:Y47U
+  WARNING: No swap limit support
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="docker-pull">
+<span id="id2"></span><h2>docker pull<a class="headerlink" href="#docker-pull" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">docker</span> <span class="pre">pull</span> <span class="pre">busybox</span></tt> 从Docker Hub上拉取busybox镜像</div></blockquote>
+</div>
+<div class="section" id="docker-run">
+<span id="id3"></span><h2>docker run<a class="headerlink" href="#docker-run" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p><tt class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">busybox</span> <span class="pre">/bin/echo</span> <span class="pre">Hello</span> <span class="pre">Docker</span></tt> 运行容器</p>
+<p><tt class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-d</span> <span class="pre">busybox</span> <span class="pre">/bin/sh</span> <span class="pre">-c</span> <span class="pre">&quot;while</span> <span class="pre">true;</span> <span class="pre">do</span> <span class="pre">echo</span> <span class="pre">Docker;</span> <span class="pre">sleep</span> <span class="pre">1;</span> <span class="pre">done&quot;</span></tt> 以后台进程的方式运行容器</p>
+</div></blockquote>
+</div>
+<div class="section" id="docker-logs">
+<span id="id4"></span><h2>docker logs<a class="headerlink" href="#docker-logs" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre><span class="c"># docker run -d busybox /bin/sh -c &quot;while true; do echo Docker; sleep 1; done&quot;</span>
+<span class="n">adc090ccbcf7feb6c9cee7228cc32f2739eddfa78ad2b10a192d8e12b2a2c594</span>
+</pre></div>
+</div>
+<p>在后台运行容器，会返回一个容器ID，之后使用 <tt class="docutils literal"><span class="pre">docker</span> <span class="pre">logs</span> <span class="pre">adc090ccbcf7feb6c9cee7228cc32f2739eddfa78ad2b10a192d8e12b2a2c594</span></tt> 可以查看输出的结果。容器ID长度很长，实际使用中可以只取前八位来使用。</p>
+</div></blockquote>
+</div>
+<div class="section" id="docker-start-stop-restart">
+<span id="docker-stop"></span><h2>docker start &amp; stop &amp; restart<a class="headerlink" href="#docker-start-stop-restart" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p><tt class="docutils literal"><span class="pre">docker</span> <span class="pre">stop</span> <span class="pre">docker_id</span></tt> 停止容器， <tt class="docutils literal"><span class="pre">docker</span> <span class="pre">restart</span> <span class="pre">docker_id</span></tt> 重启该容器。如果要完全移除容器，需要先停止容器，然后才能移除:</p>
+<div class="highlight-python"><div class="highlight"><pre>docker stop acd090ccbc
+docker rm acd090ccbc
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="docker-commit">
+<span id="id5"></span><h2>docker commit<a class="headerlink" href="#docker-commit" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">docker</span> <span class="pre">commit</span> <span class="pre">acd090ccbc</span> <span class="pre">sample01</span></tt> 将容器的状态保存为镜像，镜像名称为sample01,镜像名称只能取字符[a-z]和数字[0-9]</div></blockquote>
+</div>
+<div class="section" id="docker-images">
+<span id="id6"></span><h2>docker images<a class="headerlink" href="#docker-images" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">docker</span> <span class="pre">images</span></tt> 查看所有镜像的列表</div></blockquote>
+</div>
+<div class="section" id="docker-search">
+<span id="id7"></span><h2>docker search<a class="headerlink" href="#docker-search" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">docker</span> <span class="pre">search</span> <span class="pre">(image_name)</span></tt> 在Docker registry搜索镜像</div></blockquote>
+</div>
+<div class="section" id="docker-history">
+<span id="id8"></span><h2>docker history<a class="headerlink" href="#docker-history" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">docker</span> <span class="pre">history</span> <span class="pre">(image_name)</span></tt> 查看镜像的历史版本</div></blockquote>
+</div>
+<div class="section" id="docker-push">
+<span id="id9"></span><h2>docker push<a class="headerlink" href="#docker-push" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">docker</span> <span class="pre">push</span> <span class="pre">(image_name)</span></tt> 将镜像推送到registry</div></blockquote>
+</div>
+<div class="section" id="docker-build">
+<span id="id10"></span><h2>docker build<a class="headerlink" href="#docker-build" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p><tt class="docutils literal"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">[options]</span> <span class="pre">PATH</span> <span class="pre">|</span> <span class="pre">URL</span></tt> 使用Dockerfile构建镜像</p>
+<p><tt class="docutils literal"><span class="pre">--rm=true</span></tt> &#8211; 构建成功后，移除所有中间容器</p>
+<p><tt class="docutils literal"><span class="pre">--no-cache=false</span></tt> &#8211; 构建过程中不使用缓存</p>
+</div></blockquote>
+</div>
+<div class="section" id="docker-attach">
+<span id="id11"></span><h2>docker attach<a class="headerlink" href="#docker-attach" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">docker</span> <span class="pre">attach</span> <span class="pre">container</span></tt> 附加到正在运行的容器上</div></blockquote>
+</div>
+<div class="section" id="docker-diff">
+<span id="id12"></span><h2>docker diff<a class="headerlink" href="#docker-diff" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">docker</span> <span class="pre">diff</span> <span class="pre">container</span></tt> 列出容器内发生变化的文件和目录</div></blockquote>
+</div>
+<div class="section" id="docker-events">
+<span id="id13"></span><h2>docker events<a class="headerlink" href="#docker-events" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>打印指定时间内容器的实时系统事件</div></blockquote>
+</div>
+<div class="section" id="docker-import">
+<span id="id14"></span><h2>docker import<a class="headerlink" href="#docker-import" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>导入远程文件、本地文件和目录:</p>
+<div class="highlight-python"><div class="highlight"><pre>docker import http://example.com/example.tar
+tar -C image.tar | docker import - image_app
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="docker-export">
+<span id="id15"></span><h2>docker export<a class="headerlink" href="#docker-export" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>导出容器的系统文件打包成tarball:</p>
+<div class="highlight-python"><div class="highlight"><pre>docker export container &gt; imags.tar
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="docker-cp">
+<span id="id16"></span><h2>docker cp<a class="headerlink" href="#docker-cp" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>从容器内复制文件到指定路径上:</p>
+<div class="highlight-python"><div class="highlight"><pre>docker cp container:path hostpath
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="docker-login">
+<span id="id17"></span><h2>docker login<a class="headerlink" href="#docker-login" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>用来登陆Docker Registry服务器:</p>
+<div class="highlight-python"><div class="highlight"><pre>docker login [options] [server]
+docker login localhost:8080
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="docker-inspect">
+<span id="id18"></span><h2>docker inspect<a class="headerlink" href="#docker-inspect" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>收集关于容器和镜像的底层信息，包括:</p>
+<div class="highlight-python"><div class="highlight"><pre>* 容器实例的IP地址
+
+* 端口绑定列表
+
+* 特定端口映射的搜索
+
+* 收集配置的详细信息
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">docker</span> <span class="pre">inspect</span> <span class="pre">[</span> <span class="pre">--format=</span> <span class="pre">]</span> <span class="pre">container/image</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">docker</span> <span class="pre">inispact</span> <span class="pre">--format='{{.State}}'</span> <span class="pre">container/image</span></tt></p>
+</div></blockquote>
+</div>
+<div class="section" id="docker-kill">
+<span id="id19"></span><h2>docker kill<a class="headerlink" href="#docker-kill" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>发送 <tt class="docutils literal"><span class="pre">SIGKILL</span></tt> 信号来停止容器的主进程:</p>
+<div class="highlight-python"><div class="highlight"><pre>docker kill [options] container
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="docker-rmi">
+<span id="id20"></span><h2>docker rmi<a class="headerlink" href="#docker-rmi" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>移除一个或多个镜像:</p>
+<div class="highlight-python"><div class="highlight"><pre>docker rmi image
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="docker-wait">
+<span id="id21"></span><h2>docker wait<a class="headerlink" href="#docker-wait" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>阻塞对指定容器的其他调用方法，直到容器停止后退出阻塞。</div></blockquote>
+</div>
+<div class="section" id="docker-load">
+<span id="id22"></span><h2>docker load<a class="headerlink" href="#docker-load" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>从tarball中载入镜像到STDIN:</p>
+<div class="highlight-python"><div class="highlight"><pre>docker load -i app_box.tar
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="docker-save">
+<span id="id23"></span><h2>docker save<a class="headerlink" href="#docker-save" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>将镜像保存为tarball并发送到STDOUT:</p>
+<div class="highlight-python"><div class="highlight"><pre>docker save image &gt; app_box.tar
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="docker_intro.html">Docker入门 &#8211; 介绍</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="docker_dockerfile.html">Dockerfile</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2015, chufuyuan.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

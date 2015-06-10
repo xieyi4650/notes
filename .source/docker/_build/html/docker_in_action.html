@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Docker 案例 – 搭建工作流 &mdash; docker 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="docker 0.1 documentation" href="index.html" />
+    <link rel="prev" title="Docker入门 – 介绍" href="docker_intro.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="index.html">
+          <span>docker 0.1 documentation</span></a></h1>
+        <h2 class="heading"><span>Docker 案例 – 搭建工作流</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="docker_intro.html">Docker入门 &#8211; 介绍</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="docker">
+<span id="docker-in-action"></span><h1>Docker 案例 &#8211; 搭建工作流<a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>流程<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>在本地功能分支上完成应用代码</li>
+<li>在Github上发起一个到master分支的pull request</li>
+<li>在Docker容器上运行自动测试</li>
+<li>如果测试通过，手动将pull request merge进master分支</li>
+<li>一旦merge成功，再次运行自动测试</li>
+<li>如果第二次测试也通过，就在Docker Hub上对应用进行构建</li>
+<li>一旦构建完成，自动化的部署到生产环境</li>
+</ol>
+</div>
+<div class="section" id="id2">
+<h2>概念<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.docker.com/reference/builder/">Dockerfile</a> 中包含了一系列语句，用于对镜像的行为进行描述。</li>
+<li><a class="reference external" href="http://docs.docker.com/terms/image/">镜像</a> 是一个模板，用来保存环境状态并创建容器。</li>
+<li><a class="reference external" href="http://docs.docker.com/terms/container/">容器</a> 可以理解为实例化的镜像，并会在其中运行一系列进程。</li>
+</ul>
+</div>
+<div class="section" id="why">
+<h2>Why ?<a class="headerlink" href="#why" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>使用Docker意味着能够在开发机上完美地模拟生产环境，而不用再为任何由两者环境、配置差异所造成的问题而担心，此外，docker带给我们的还有:</p>
+<ul class="simple">
+<li>良好的版本控制</li>
+<li>随时便捷地发布或重建整个开发环境</li>
+<li>一次构建，随处运行</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id5">
+<h2>配置Docker<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>由于windows NT、Darwin内核缺少运行Docker容器的一些Linux内核功能，需要借助boot2docker，一个用于运行Docker的轻量级Linux发行版。</li>
+<li>Linux内核的操作系统可以直接运行docker守护进程。</li>
+<li><tt class="docutils literal"><span class="pre">docker</span> <span class="pre">version</span></tt></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="compose-up">
+<h2>Compose UP<a class="headerlink" href="#compose-up" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>Docker compose 是官方提供的容器业务流程框架，只需通过简单的YAML配置文件就能完成多个容器服务的构建和运行。</p>
+<p><tt class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">docker-compose</span></tt> 安装docker compose</p>
+<p>开始搭建Flask+Redis应用</p>
+<p>在项目根目录下新建docker-compose.yml文件:</p>
+<div class="highlight-python"><div class="highlight"><pre>web:
+  build: web
+volumes:
+  - web: /code
+ports:
+  - &quot;80:5000&quot;
+links:
+  - redis
+command: python app.py
+redis:
+image: redis:2.8.19
+ports:
+  - &quot;6379:6379&quot;
+</pre></div>
+</div>
+<p>上面我们对项目所含的两个服务进行了操作:</p>
+<blockquote>
+<div><ul class="simple">
+<li>web: 我们将在web目录下进行容器的构建，并且将其作为Volume挂载到容器的/code目录中，然后通过python app.py来启动Flask应用。最后将容器的5000端口暴露出来，映射到80端口上。</li>
+<li>redis: 直接使用Docker Hub上的官方镜像来提供所需的Redis服务支持，将6379端口暴露并映射到主机上。</li>
+</ul>
+<p>之后在web目录下创建Dockerfile文件用于指导如何构建应用镜像。</p>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="id6">
+<h2>构建并运行<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p><tt class="docutils literal"><span class="pre">docker-compose</span> <span class="pre">up</span></tt> 这会根据dockerfile构建Flask应用的镜像，从官方仓库拉取Redis镜像，然后将一切运行起来。docker compose会并行地期都过全部容器，每个容器会被分配各自的名字。</p>
+<p><tt class="docutils literal"><span class="pre">docker-compose</span> <span class="pre">ps</span></tt> 可以查看应用进程的运行状态。两个进程运行在不同的容器中，而Docker Compose将它们组织在一起。</p>
+<p>我们建立了本地环境，通过Dockerfile详尽描述了如何构建镜像，并基于该镜像启动了相应容器。我们使用Docker Compose来将这一切整合起来，包括构建和容器之间的关联、通信（在Flask和Redis进程之间）。</p>
+</div></blockquote>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="docker_intro.html">Docker入门 &#8211; 介绍</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2015, chufuyuan.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

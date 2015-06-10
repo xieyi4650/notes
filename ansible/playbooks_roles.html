@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Playbook Roles &mdash; Dhub 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Dhub 0.1 documentation" href="../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Dhub 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="playbook-roles">
+<span id="id1"></span><h1>Playbook Roles<a class="headerlink" href="#playbook-roles" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="task-include-files-and-encouraging-reuse">
+<h2>Task Include Files And Encouraging Reuse<a class="headerlink" href="#task-include-files-and-encouraging-reuse" title="Permalink to this headline">¶</a></h2>
+<p>The goal of a play in a playbook is to map a group of systems into multiple roles:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+# possibly saved as tasks/foo.yml
+- name: foo
+  command: /bin/foo
+- name: bar
+  command: /bin/bar
+
+---
+tasks:
+  - include: tasks/foo.yml
+</pre></div>
+</div>
+<p>You can also pass variables into includes:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+  - include: wordpress.yml wp_user=timmy
+  - include: wordpress.yml wp_user=alice
+  - include: wordpress.yml wp_user=bob
+</pre></div>
+</div>
+<p>Includes can also be used in the &#8216;handlers&#8217; section:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+# handlers/handlers.yml
+- name: restart apache
+  serice: name=apache state=restarted
+
+---
+# in your main playbook file
+handlers:
+  - include: handlers/handlers.yml
+</pre></div>
+</div>
+</div>
+<div class="section" id="roles">
+<h2>Roles<a class="headerlink" href="#roles" title="Permalink to this headline">¶</a></h2>
+<p>Roles are ways of automatically loading certain vars_files, tasks, and handlers based on a known file structure. Grouping content by roles also allows easy sharing of roles with other users.</p>
+<p>Example project structure:</p>
+<div class="highlight-python"><div class="highlight"><pre>site.yml
+webservers.yml
+fooservers.yml
+roles/
+   common/
+     files/
+     templates/
+     tasks/
+     handlers/
+     vars/
+     defaults/
+     meta/
+   webservers/
+     files/
+     templates/
+     tasks/
+     handlers/
+     vars/
+     defaults/
+     meta/
+</pre></div>
+</div>
+<p>In a  playbook, it would look like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+- hosts: webservers
+  roles:
+    - common
+    - webservers
+    - { role: foo_app_instance, dir: &#39;/opt/a&#39;, port: 5000 }
+    - { role: some_role, when: &quot;ansible_os_family == &#39;RedHat&#39;&quot; }
+    - { role: foo, tags: [&quot;bar&quot;, &quot;baz&quot;] }
+</pre></div>
+</div>
+<p>main.yml in tasks/ handlers/ vars/ will all be added to the play, and main.yml in meta/ will add any role dependencies to the list of roles.</p>
+<p>copy tasks, script tasks can reference files in roles/xxx/files/ without have to path them relatively or absolutely.</p>
+<p>template tasks can reference files in roles/xxx/templates/ without have to path them relatively or absolutely.</p>
+<p>include tasks can reference files in roles/x/tasks/ without having to path them relatively or absolutely.</p>
+</div>
+<div class="section" id="role-default-variables">
+<h2>Role Default Variables<a class="headerlink" href="#role-default-variables" title="Permalink to this headline">¶</a></h2>
+<p>Role default variables allow you to set default variables for included or dependent roles (see below). To create defaults, simply add a defaults/main.yml file in your role directory. These variables will have the lowest priority of any variables available, and can be easily overridden by any other variable, including inventory variables.</p>
+</div>
+<div class="section" id="role-dependencies">
+<h2>Role Dependencies<a class="headerlink" href="#role-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>Role dependencies are stored in the meta/main.yml file contained within the role directory:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+dependencies:
+  - { role: common, some_parameter: 3 }
+  - { role: apache, port: 80 }
+  - { role: postgres, dbname: blarg, other_parameter: 12 }
+  - { role: &#39;/path/to/common/roles/foo&#39;, x: 1 }
+</pre></div>
+</div>
+<p>Roles dependencies are always executed before the role that includes them, and are recursive.</p>
+<p>By default, roles can also only be added as a dependency once - if another role also lists it as a dependency it will not be run again. This behavior can be overridden by adding allow_duplicates: yes to the meta/main.yml file.</p>
+</div>
+<div class="section" id="embedding-modules-in-roles">
+<h2>Embedding Modules In Roles<a class="headerlink" href="#embedding-modules-in-roles" title="Permalink to this headline">¶</a></h2>
+<p>You may distribute a custom module as part of a role. You could add a directory named &#8216;library&#8217; which include the module directly inside of it. And the module will be usable in the role itselft, as well as any roles that are called after this role.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Playbook Roles</a><ul>
+<li><a class="reference internal" href="#task-include-files-and-encouraging-reuse">Task Include Files And Encouraging Reuse</a></li>
+<li><a class="reference internal" href="#roles">Roles</a></li>
+<li><a class="reference internal" href="#role-default-variables">Role Default Variables</a></li>
+<li><a class="reference internal" href="#role-dependencies">Role Dependencies</a></li>
+<li><a class="reference internal" href="#embedding-modules-in-roles">Embedding Modules In Roles</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/ansible/playbooks_roles.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Fuyuan.Chu.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      
+      |
+      <a href="../_sources/ansible/playbooks_roles.txt"
+          rel="nofollow">Page source</a></li>
+    </div>
+
+    
+
+    
+  </body>
+</html>

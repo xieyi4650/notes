@@ -1,0 +1,346 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Variables &mdash; Dhub 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Dhub 0.1 documentation" href="../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Dhub 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="variables">
+<span id="playbooks-variables"></span><h1>Variables<a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h1>
+<p>Variables in Ansible are how we deal with differences between systems.</p>
+<div class="section" id="what-makes-a-valid-variable-name">
+<h2>What Makes A Valid Variable Name<a class="headerlink" href="#what-makes-a-valid-variable-name" title="Permalink to this headline">¶</a></h2>
+<p>Variable names should be letters, numbers and underscores. Variables should always start with a letter.</p>
+</div>
+<div class="section" id="variable-defined-in-inventory">
+<h2>Variable Defined in Inventory<a class="headerlink" href="#variable-defined-in-inventory" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="reference internal" href="inventory_intro.html#inventory-intro"><span>Inventory</span></a> document for multiple ways on how to define variables in inventory.</p>
+</div>
+<div class="section" id="varialbe-defined-in-a-playbook">
+<h2>Varialbe Defined in a Playbook<a class="headerlink" href="#varialbe-defined-in-a-playbook" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>- hosts: webservers
+  vars:
+    http_port: 80
+</pre></div>
+</div>
+<p>In a playbook, varialbes are defined directly inline like above.</p>
+</div>
+<div class="section" id="varialbes-defined-from-include-files-and-roles">
+<h2>Varialbes defined from include files and roles<a class="headerlink" href="#varialbes-defined-from-include-files-and-roles" title="Permalink to this headline">¶</a></h2>
+<p>Usage of roles is preferred as it provides a nice organizational system. Variables can also be included in the playbook via include files.</p>
+</div>
+<div class="section" id="using-variables-about-jinja2">
+<h2>Using Variables: About Jinja2<a class="headerlink" href="#using-variables-about-jinja2" title="Permalink to this headline">¶</a></h2>
+<p>Ansible allows you to reference variables in your playbooks using the Jinja2 templating system.</p>
+<p>This is basic form of variable substituion <code class="docutils literal"><span class="pre">My</span> <span class="pre">amp</span> <span class="pre">goes</span> <span class="pre">to</span> <span class="pre">{{</span> <span class="pre">max_amp_value</span> <span class="pre">}}</span></code></p>
+<p>And it&#8217;s also valid directly in playbooks <code class="docutils literal"><span class="pre">template:</span> <span class="pre">src=foo.cfg</span> <span class="pre">dest={{</span> <span class="pre">remote_install_path</span> <span class="pre">}}/foo.cfg</span></code></p>
+</div>
+<div class="section" id="yaml-quote">
+<h2>YAML Quote<a class="headerlink" href="#yaml-quote" title="Permalink to this headline">¶</a></h2>
+<p>YAML syntax requires that if you start a value with <code class="docutils literal"><span class="pre">{{</span> <span class="pre">foo</span> <span class="pre">}}</span></code> you quote the whole line, since it wants to be sure you aren&#8217;t try to start a YAML dictionary.</p>
+<p>This won&#8217;t work:</p>
+<div class="highlight-python"><div class="highlight"><pre>- hosts: backend
+  vars:
+    srv_path: {{ base_path }}/source
+</pre></div>
+</div>
+<p>Do it like this and you&#8217;ll be fine:</p>
+<div class="highlight-python"><div class="highlight"><pre>- hosts: backend
+  vars:
+    srv_path: &quot;{{ base_path }}/source&quot;
+</pre></div>
+</div>
+</div>
+<div class="section" id="information-discoverd-from-systems-facts">
+<h2>Information Discoverd From Systems: Facts<a class="headerlink" href="#information-discoverd-from-systems-facts" title="Permalink to this headline">¶</a></h2>
+<p>Facts are information derived from speaking with your remote systems.</p>
+<p>Try it out <code class="docutils literal"><span class="pre">ansible</span> <span class="pre">-i</span> <span class="pre">hosts</span> <span class="pre">all</span> <span class="pre">-m</span> <span class="pre">setup</span></code>  and <code class="docutils literal"><span class="pre">ansible</span> <span class="pre">-i</span> <span class="pre">hosts</span> <span class="pre">all</span> <span class="pre">-m</span> <span class="pre">setup</span> <span class="pre">-a</span> <span class="pre">filter=ansible_mounts</span></code></p>
+<p>So, facts may be referenced in a template or playbook as <code class="docutils literal"><span class="pre">{{</span> <span class="pre">ansible_devices.sda.model</span> <span class="pre">}}</span></code></p>
+<p>Facts are frequently used in <a class="reference internal" href="playbooks_conditionals.html#playbooks-conditionals"><span>Conditionals</span></a> and also in templates.</p>
+</div>
+<div class="section" id="turning-off-facts">
+<h2>Turning Off Facts<a class="headerlink" href="#turning-off-facts" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>- hosts: lbservers
+  gather_facts: false
+</pre></div>
+</div>
+</div>
+<div class="section" id="local-facts-facts-d">
+<h2>Local Facts(Facts.d)<a class="headerlink" href="#local-facts-facts-d" title="Permalink to this headline">¶</a></h2>
+<p>If a remotely managed system has an “/etc/ansible/facts.d” directory, any files in this directory ending in ”.fact”, can be JSON, INI, or executable files returning JSON, and these can supply local facts in Ansible.</p>
+<p>For instance assume a /etc/ansible/facts.d/preferences.fact:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="n">general</span><span class="p">]</span>
+<span class="n">asdf</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">bar</span><span class="o">=</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">ansible</span> <span class="pre">localhost</span> <span class="pre">-m</span> <span class="pre">setup</span> <span class="pre">-a</span> <span class="pre">&quot;filter=ansible_local&quot;</span></code></p>
+<p>You will see the following fact added:</p>
+<div class="highlight-python"><div class="highlight"><pre>&quot;ansible_local&quot;: {
+    &quot;preferences&quot;: {
+      &quot;general&quot;: {
+        &quot;asdf&quot;: &quot;1&quot;,
+        &quot;bar&quot;: &quot;2&quot;
+      }
+    }
+}
+</pre></div>
+</div>
+<p>and this data can be accessed in a template/playbook as:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{{</span> <span class="n">ansible_local</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">general</span><span class="o">.</span><span class="n">asdf</span> <span class="p">}}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="fact-caching">
+<h2>Fact Caching<a class="headerlink" href="#fact-caching" title="Permalink to this headline">¶</a></h2>
+<p>It is possible for one server to reference variables about another, like so:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{{</span> <span class="n">hostvars</span><span class="p">[</span><span class="s">&#39;asdf.example.com&#39;</span><span class="p">][</span><span class="s">&#39;ansible_os_family&#39;</span><span class="p">]</span> <span class="p">}}</span>
+</pre></div>
+</div>
+<p>Ansible must have already talked to &#8216;asdf.example.com&#8217; in the current or another play up higher playbook.</p>
+<p>To avoid this, ansible allows the ability to save facts between playbook runs. With fact-caching enabled, it would not be necessary to &#8220;hit&#8221; all servers to reference variables and information about them.</p>
+<p>To enable fact-caching in ansible.cfg as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="n">defaults</span><span class="p">]</span>
+<span class="n">gatering</span> <span class="o">=</span> <span class="n">smart</span>
+<span class="n">fact_caching</span> <span class="o">=</span> <span class="n">redis</span>
+<span class="n">fact_caching_timeout</span> <span class="o">=</span> <span class="mi">86400</span>
+</pre></div>
+</div>
+<p>redis is the only supported fact caching engine:</p>
+<div class="highlight-python"><div class="highlight"><pre>yum install redis
+service redis start
+pip install redis
+</pre></div>
+</div>
+</div>
+<div class="section" id="registered-variables">
+<h2>Registered Variables<a class="headerlink" href="#registered-variables" title="Permalink to this headline">¶</a></h2>
+<p>Registered varialbes save the result of a command. Use of <code class="docutils literal"><span class="pre">-v</span></code> when executing playbooks will show possible values for the results.</p>
+<p>Here&#8217;s a quick syntax example:</p>
+<div class="highlight-python"><div class="highlight"><pre>- hosts: localhost
+  tasks:
+    - name: add user ansible_test
+      user: name=ansible_test state=present shell=/bin/false
+      register: user_result
+      ignore_errors: True
+
+    - name: copy vimrc files
+      copy: src=.vimrc dest=/home/ansible_test/.vimrc
+      when: user_result.state == &quot;present&quot;
+</pre></div>
+</div>
+</div>
+<div class="section" id="accessing-complex-variable-data">
+<h2>Accessing Complex Variable Data<a class="headerlink" href="#accessing-complex-variable-data" title="Permalink to this headline">¶</a></h2>
+<p>Different ways to access variable data:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{{</span> <span class="n">ansible_eth0</span><span class="p">[</span><span class="s">&quot;ipv4&quot;</span><span class="p">][</span><span class="s">&quot;address&quot;</span><span class="p">]</span> <span class="p">}}</span>
+<span class="p">{{</span> <span class="n">ansible_eth0</span><span class="o">.</span><span class="n">ipv4</span><span class="o">.</span><span class="n">address</span> <span class="p">}}</span>
+<span class="p">{{</span> <span class="n">ansible_eth0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">}}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="magic-variables-and-how-to-access-information-about-other-hosts">
+<h2>Magic Variables, and How TO Access Information About Other Hosts<a class="headerlink" href="#magic-variables-and-how-to-access-information-about-other-hosts" title="Permalink to this headline">¶</a></h2>
+<p>Ansible provides a few variables for you automatically, mostly like <code class="docutils literal"><span class="pre">hostvars</span></code> <code class="docutils literal"><span class="pre">group_names</span></code> <code class="docutils literal"><span class="pre">groups</span></code></p>
+<ul>
+<li><p class="first">hostvars</p>
+<p><strong>hostvars</strong> lets you ask about the variables of another host including facts that have been gathered about that host.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{{</span> <span class="n">hostvars</span><span class="p">[</span><span class="s">&#39;node1.server.com&#39;</span><span class="p">][</span><span class="s">&#39;ansible_os_family&#39;</span><span class="p">]</span> <span class="p">}}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">group_names</p>
+<p><strong>group_names</strong> is a list of all the groups the current host is in.</p>
+<div class="highlight-python"><div class="highlight"><pre>{% if &#39;webserver&#39; in group_names %}
+  # some part of a configuration file that only applies to webservers
+{% endif %}
+</pre></div>
+</div>
+</li>
+<li><p class="first">groups</p>
+<p><strong>groups</strong> is a list of all the groups in the inventory.</p>
+<div class="highlight-python"><div class="highlight"><pre>{% for host in groups[&#39;webserver&#39;] %}
+  # something that applies to all app servers.
+  {{ hostvars[host][&#39;ansible_eth0&#39;][&#39;ipv4&#39;][&#39;address&#39;]}} # this could walk out all IP addresses in a group
+{% endfor %}
+</pre></div>
+</div>
+</li>
+<li><p class="first">play_hosts</p>
+<p><strong>play_hosts</strong> is available as a list of hostnames that are in scope for the current play.</p>
+</li>
+<li><p class="first">delegate_to</p>
+<p><strong>delegate_to</strong> is the inventory hostname of the host that the current task has been deledated to using &#8216;delegate_to&#8217;.</p>
+</li>
+<li><p class="first">inventory_dir &amp;&amp; inventory_file</p>
+<p><strong>inventory_dir</strong> is the pathname of the directory holding Ansible&#8217;s inventory host file.</p>
+<p><strong>inventory_file</strong> is the pathname and the filename pointing to the Ansible&#8217;s inventory host file.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="variable-file-separation">
+<h2>Variable File Separation<a class="headerlink" href="#variable-file-separation" title="Permalink to this headline">¶</a></h2>
+<p>To keep certain important variables private or just to keep certain information in different files, you can do this using external varialbes files:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+- hosts: all
+  remote_user: root
+  vars:
+    favcolor: blue
+  vars_files:
+    - /vars/external_vars.yml
+
+  tasks:
+  - name: create a file
+    copy: src=/tmp/ansible_test content=&quot;{{ external_vars }}&quot;
+</pre></div>
+</div>
+<p>Using external varialbe files could removes the risk of sharing sensitive data with others when sharing your playbook source with them.</p>
+<p>The content of each varialbes file is simple YAML dictionary, like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+somevar: somevalue
+passowrd: sensitive
+</pre></div>
+</div>
+</div>
+<div class="section" id="passing-variables-on-the-command-line">
+<h2>Passing Variables On The Command Line<a class="headerlink" href="#passing-variables-on-the-command-line" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">ansible-playbook</span> <span class="pre">release.yml</span> <span class="pre">--extra-vars</span> <span class="pre">&quot;hosts=lbs</span> <span class="pre">user=tdm&quot;</span></code></p>
+<div class="highlight-python"><div class="highlight"><pre>---
+- hosts: &#39;{{ hosts }}&#39;
+  remote_user: &#39;{{ user }}&#39;
+  tasks:
+    - name: update apps
+      git: repo=git@github.com/gituser/somerepo.git dest=&#39;/home/{{user}}&#39;
+</pre></div>
+</div>
+<p>Extra vars can be loaded as quoted JSON or from a JSON file with &#8220;&#64;&#8221;:</p>
+<div class="highlight-python"><div class="highlight"><pre>--extra-vars &#39;{&quot;hosts&quot;: &quot;lbs&quot;, &quot;user&quot;: &quot;tdm&quot;}&#39;
+--extra-vars &quot;@some_file.json&quot;
+</pre></div>
+</div>
+</div>
+<div class="section" id="variable-precedence-where-should-i-put-a-variable">
+<h2>Variable Precedence: Where Should I Put A Variable ?<a class="headerlink" href="#variable-precedence-where-should-i-put-a-variable" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>extra vars (-e in the command line) always win</li>
+<li>then comes connection variables defined in inventory (ansible_ssh_user, etc)</li>
+<li>then comes &#8220;most everything else&#8221; (command line switches, vars in play, included vars, role vars, etc)</li>
+<li>then comes the rest of the variables defined in inventory</li>
+<li>then comes facts discovered about a system</li>
+<li>then &#8220;role defaults&#8221;, which are the most &#8220;defaulty&#8221; and lose in priority to everything.</li>
+</ul>
+<p>Site wide defaults should be defined as a &#8216;group_vars/all&#8217; setting.</p>
+<p>Official document provides some <a class="reference external" href="http://docs.ansible.com/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable">examples</a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Variables</a><ul>
+<li><a class="reference internal" href="#what-makes-a-valid-variable-name">What Makes A Valid Variable Name</a></li>
+<li><a class="reference internal" href="#variable-defined-in-inventory">Variable Defined in Inventory</a></li>
+<li><a class="reference internal" href="#varialbe-defined-in-a-playbook">Varialbe Defined in a Playbook</a></li>
+<li><a class="reference internal" href="#varialbes-defined-from-include-files-and-roles">Varialbes defined from include files and roles</a></li>
+<li><a class="reference internal" href="#using-variables-about-jinja2">Using Variables: About Jinja2</a></li>
+<li><a class="reference internal" href="#yaml-quote">YAML Quote</a></li>
+<li><a class="reference internal" href="#information-discoverd-from-systems-facts">Information Discoverd From Systems: Facts</a></li>
+<li><a class="reference internal" href="#turning-off-facts">Turning Off Facts</a></li>
+<li><a class="reference internal" href="#local-facts-facts-d">Local Facts(Facts.d)</a></li>
+<li><a class="reference internal" href="#fact-caching">Fact Caching</a></li>
+<li><a class="reference internal" href="#registered-variables">Registered Variables</a></li>
+<li><a class="reference internal" href="#accessing-complex-variable-data">Accessing Complex Variable Data</a></li>
+<li><a class="reference internal" href="#magic-variables-and-how-to-access-information-about-other-hosts">Magic Variables, and How TO Access Information About Other Hosts</a></li>
+<li><a class="reference internal" href="#variable-file-separation">Variable File Separation</a></li>
+<li><a class="reference internal" href="#passing-variables-on-the-command-line">Passing Variables On The Command Line</a></li>
+<li><a class="reference internal" href="#variable-precedence-where-should-i-put-a-variable">Variable Precedence: Where Should I Put A Variable ?</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/ansible/playbooks_variables.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Fuyuan.Chu.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      
+      |
+      <a href="../_sources/ansible/playbooks_variables.txt"
+          rel="nofollow">Page source</a></li>
+    </div>
+
+    
+
+    
+  </body>
+</html>

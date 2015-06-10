@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Conditionals &mdash; Dhub 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Dhub 0.1 documentation" href="../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Dhub 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="conditionals">
+<span id="playbooks-conditionals"></span><h1>Conditionals<a class="headerlink" href="#conditionals" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-when-statement">
+<h2>The When Statement<a class="headerlink" href="#the-when-statement" title="Permalink to this headline">¶</a></h2>
+<p>With the <strong>when</strong> clause, which contains a Jinja2 expression, It is easy to do something particular on a particular host:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+  - name: &quot;shutdown CentOS 6 and 7 system&quot;
+    command: /sbin/shutdown -t now
+    when: ansible_distribution == &quot;CentOS&quot; and
+          (ansible_distribution_major_version == &quot;6&quot; or ansible_distribution_major_version == &quot;7&quot;)
+</pre></div>
+</div>
+<p>A number of Jinja2 <a class="reference external" href="http://docs.ansible.com/playbooks_filters.html">filters</a> can be used in <strong>when</strong> statements.</p>
+<p>Suppose we want to ignore the error of one statement and then decide to do something conditionaly based on success or failure:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+  - command: /bin/false
+    register: result
+    ignore_errors: True
+
+  - command: /bin/something
+    when: result|failed
+  - command: /bin/something_else
+    when: result|success
+  - command: /bin/still/something_else
+    when: result|skipped
+</pre></div>
+</div>
+<p>If you get some variable that&#8217;s a string and you&#8217;ll do a matn comparison on it:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+  - shell: echo &quot;only on RedHat 6, derivatives, and later&quot;
+    when: ansible_os_family == &quot;RedHat&quot; and ansible_lsb.major_release|int &gt;= 6
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The above example requires the lsb_release package on the target host in order to return the ansible_lsb.major_release fact.</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+  - command: echo {{item}}
+    with_items: [1, 2, 3, 4, 5]
+    when: item &gt; 3
+</pre></div>
+</div>
+<p>When combining <strong>when</strong> with <strong>with_items</strong> , be aware that the <strong>when</strong> statement is processed separately for each item.</p>
+</div>
+<div class="section" id="applying-when-to-roles-and-includes">
+<h2>Applying &#8216;When&#8217; to roles and includes<a class="headerlink" href="#applying-when-to-roles-and-includes" title="Permalink to this headline">¶</a></h2>
+<p>Note that if you have several tasks that all share the same conditional statement, you can affix the conditional to a task include statement as below. Note this does not work with playbook includes, just task includes. All the tasks get evaluated, but the conditional is applied to each and every task:</p>
+<div class="highlight-python"><div class="highlight"><pre>- include: tasks/sometasks.yml
+  when: ansible_os_family == &quot;RedHat&quot;
+
+
+- hosts: webservers
+  roles:
+    - { role: debian_stock_config, when: ansible_os_family == &quot;Debian&quot; }
+</pre></div>
+</div>
+</div>
+<div class="section" id="conditional-imports">
+<h2>Conditional Imports<a class="headerlink" href="#conditional-imports" title="Permalink to this headline">¶</a></h2>
+<p>Here is an example:</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+- hosts: all
+  remote_user: root
+  var_files:
+    - &quot;vars/common.yml&quot;
+    - [ &quot;vars/{{ansible_os_family}}.yml&quot;, &quot;vars/os_defaults.yml&quot; ]
+
+  tasks:
+    - name: make sure apache is running
+      service: name={{ apache }} state=running
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Ansible&#8217;s approach to configuration - separating variables from tasks, keeps your playbooks from turning into arbitrary code with ugly nested ifs, conditionals, and so on - and results in more streamlines &amp; auditable configuration rules - especially because there are a minimum of decision points to track.</p>
+</div>
+</div>
+<div class="section" id="selecting-files-and-templates-based-on-variables">
+<h2>Selecting Files and Templates Based On Variables<a class="headerlink" href="#selecting-files-and-templates-based-on-variables" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>- name: template a file
+  template: src={{item}} dest=/etc/apps/foo.conf
+  with_first_found:
+    - files:
+        - {{ansible_os_family}}.conf
+        - defaults.conf
+      path:
+        - search_path_one/somedir/
+        - /opt/other/dir/
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Sometimes a configuration file you want to copy, or a template you will use may depend on a variable. This example construct selects the first available file appropriate for the variables of a given host, which is often much cleaner than putting a lot of if conditionals in a template.</p>
+</div>
+</div>
+<div class="section" id="register-variables">
+<h2>Register Variables<a class="headerlink" href="#register-variables" title="Permalink to this headline">¶</a></h2>
+<p>The <em>register</em> keyword decides what variable to save a result in. The resulting can be used in templates, action lines, or <em>when</em> statements.</p>
+<div class="highlight-python"><div class="highlight"><pre>---
+- hosts: all
+  remote_user: root
+  gather_facts: true
+
+  tasks:
+    - name: register results
+      command: cat /run/mysqld/mysqld.pid
+      register: result
+
+    - name: result failed
+      service: name=mysqld state=running
+      when: result|failed
+
+    - name: result success
+      shell: cat /run/mysqld/mysqld.pid &gt; /root/logfile
+      when: result.stdout != &#39;&#39;
+</pre></div>
+</div>
+<p>As result quite farmiliar with:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">u&#39;changed&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="s">u&#39;end&#39;</span><span class="p">:</span> <span class="s">u&#39;2015-06-10 12:51:43.636894&#39;</span><span class="p">,</span> <span class="s">u&#39;stdout&#39;</span><span class="p">:</span> <span class="s">u&#39;1351&#39;</span><span class="p">,</span> <span class="s">u&#39;cmd&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">u&#39;cat&#39;</span><span class="p">,</span> <span class="s">u&#39;/run/sshd.pid&#39;</span><span class="p">],</span> <span class="s">u&#39;start&#39;</span><span class="p">:</span> <span class="s">u&#39;2015-06-10 12:51:43.630985&#39;</span><span class="p">,</span> <span class="s">u&#39;delta&#39;</span><span class="p">:</span> <span class="s">u&#39;0:00:00.005909&#39;</span><span class="p">,</span> <span class="s">u&#39;stderr&#39;</span><span class="p">:</span> <span class="s">u&#39;&#39;</span><span class="p">,</span> <span class="s">u&#39;rc&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;invocation&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;module_name&#39;</span><span class="p">:</span> <span class="s">&#39;command&#39;</span><span class="p">,</span> <span class="s">&#39;module_args&#39;</span><span class="p">:</span> <span class="s">&#39;cat /run/sshd.pid&#39;</span><span class="p">},</span> <span class="s">&#39;stdout_lines&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">u&#39;1351&#39;</span><span class="p">]}</span>
+</pre></div>
+</div>
+<p>The registered result can be used in the <em>with_item</em> of a task if it is converted into a list as shown below:</p>
+<div class="highlight-python"><div class="highlight"><pre>tasks:
+  - name: get home dirs
+    command: ls /home
+    register: home_dirs
+
+  - name: backup all home dirs
+    file: path=/mnt/backup/{{item}} src=/home/{{item}} state=link
+    with_items: home_dirs.stdout_lines
+       # same as with_items: home_dirs.stdout.split()
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Conditionals</a><ul>
+<li><a class="reference internal" href="#the-when-statement">The When Statement</a></li>
+<li><a class="reference internal" href="#applying-when-to-roles-and-includes">Applying &#8216;When&#8217; to roles and includes</a></li>
+<li><a class="reference internal" href="#conditional-imports">Conditional Imports</a></li>
+<li><a class="reference internal" href="#selecting-files-and-templates-based-on-variables">Selecting Files and Templates Based On Variables</a></li>
+<li><a class="reference internal" href="#register-variables">Register Variables</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/ansible/playbooks_conditionals.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Fuyuan.Chu.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      
+      |
+      <a href="../_sources/ansible/playbooks_conditionals.txt"
+          rel="nofollow">Page source</a></li>
+    </div>
+
+    
+
+    
+  </body>
+</html>

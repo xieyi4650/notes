@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Dockerfile最佳实践(一) &mdash; docker 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="docker 0.1 documentation" href="index.html" />
+    <link rel="next" title="Docker 案例 – 搭建工作流" href="docker_in_action.html" />
+    <link rel="prev" title="Dockerfile" href="docker_dockerfile.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="index.html">
+          <span>docker 0.1 documentation</span></a></h1>
+        <h2 class="heading"><span>Dockerfile最佳实践(一)</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="docker_dockerfile.html">Dockerfile</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="docker_in_action.html">Docker 案例 &#8211; 搭建工作流</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="dockerfile">
+<span id="dockerfile-best-practices-take1"></span><h1>Dockerfile最佳实践(一)<a class="headerlink" href="#dockerfile" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>使用缓存<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>Dockerfile的每条指令都会将结果提交为新的镜像。下一条指令基于上一条指令的镜像进行构建。如果一个镜像拥有相同的父镜像和指令（除了 <tt class="docutils literal"><span class="pre">ADD</span></tt> )，Docker将会使用镜像而不是执行该指令，即缓存。</p>
+<p>因此，为了有效的利用缓存，尽量保持Dockerfile一致，并且尽量在末尾修改:</p>
+<div class="highlight-python"><div class="highlight"><pre>FROM ubuntu
+
+MAINTAINER author &lt;somebody@company.com&gt;
+
+RUN echo &quot;deb http://archive.ubuntu.com/ubuntu precise main universe&quot;
+
+RUN apt-get update
+
+RUN apt-get upgrade -y
+</pre></div>
+</div>
+<p>更改 <tt class="docutils literal"><span class="pre">MAINTAINER</span></tt> 指令会使Docker强制执行 <tt class="docutils literal"><span class="pre">run</span></tt> 指令来更新apt，而不是使用缓存。</p>
+<p>如不希望使用缓存，在执行 <tt class="docutils literal"><span class="pre">docker</span> <span class="pre">build</span></tt> 的时候加上参数 <tt class="docutils literal"><span class="pre">--no-cache=true</span></tt> 。</p>
+<p>Docker匹配镜像决定是否使用缓存的规则如下:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#. 从缓存中存在的基础镜像开始，比较所有子镜像，检查它们构建的指令是否和当前的是否完全一致。如果不一致则缓存不匹配。</span>
+
+<span class="c">#. 多数情况中，使用其中一个子镜像来比较Dockerfile中的指令是足够的。然而，特定的指令需要做更多的判断。</span>
+
+<span class="c">#. ``ADD`` ``COPY`` 指令中，将要添加到镜像中的文件也要被检查。通常是检查文件的校验和(checksum)。</span>
+
+<span class="c">#. 缓存匹配检查并不检查容器中的文件。例如，当使用 ``RUN apt-get -y update`` 命令更新了容器中的文件，并不会被缓存检查策略作为缓存匹配的依据。</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="id2">
+<h2>使用标签<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>除非是在用Docker做实验，否则你应当通过 <tt class="docutils literal"><span class="pre">-t</span></tt> 选项来 <tt class="docutils literal"><span class="pre">docker</span> <span class="pre">build</span></tt> 新的镜像以便于标记构建的镜像。一个简单可读的标签可以帮助管理每个创建的镜像。</p>
+<div class="highlight-python"><div class="highlight"><pre>docker build -t=&quot;tuxknight/luckypython&quot;
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">始终通过 <tt class="docutils literal"><span class="pre">-t</span></tt> 标记来构建镜像。</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>公开端口<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>Docker的核心概念是可重复和可移植，镜像应该可以运行在任何主机上并运行尽可能多的次数。在Dockerfile中你可以映射私有和公有端口，但永远不要通过Dockerfile映射公有端口。这样运行多个镜像的情况下会出现端口冲突的问题。</p>
+<div class="highlight-python"><div class="highlight"><pre>EXPOSE 80:8080  # 80映射到host的8080，不提倡这种用法
+
+EXPOSE 80 # 80会被docker随机映射一个端口
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="cmd-entrypoint">
+<h2>CMD ENTRYPOINT语法<a class="headerlink" href="#cmd-entrypoint" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p><tt class="docutils literal"><span class="pre">CMD</span></tt> 和 <tt class="docutils literal"><span class="pre">ENTRYPOINT</span></tt> 支持两种语法:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">CMD</span> <span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">echo</span>
+
+<span class="n">CMD</span> <span class="p">[</span><span class="s">&quot;/bin/echo&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>在第一种方式下，Docker会在命令前加上 <tt class="docutils literal"><span class="pre">/bin/sh</span> <span class="pre">-c</span></tt> ,可能会导致一些意想不到的问题。第二种方式下 <tt class="docutils literal"><span class="pre">CMD</span></tt> <tt class="docutils literal"><span class="pre">ENTRYPOINT</span></tt> 是一个数组，执行的命令完全和你期待的一样。</p>
+</div></blockquote>
+</div>
+<div class="section" id="id4">
+<h2>容器是短暂的<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>容器模型是进程而不是机器，不需要开机初始化。在需要时运行，不需要是停止，能够删除后重建，并且配置和启动的最小化。</div></blockquote>
+</div>
+<div class="section" id="dockerignore">
+<h2>.dockerignore 文件<a class="headerlink" href="#dockerignore" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>在 <tt class="docutils literal"><span class="pre">docker</span> <span class="pre">build</span></tt> 的时候，忽略部分无用的文件和目录可以提高构建的速度。</div></blockquote>
+</div>
+<div class="section" id="id5">
+<h2>不要在构建中升级版本<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>不在容器中更新，更新交给基础镜像来处理。</div></blockquote>
+</div>
+<div class="section" id="id6">
+<h2>每个容器只运行一个进程<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>一个容器只运行一个进程。容器起到了隔离应用隔离数据的作用，不同的应用运行在不同的容器让集群的纵向扩展以及容器的复用都变的更加简单。</div></blockquote>
+</div>
+<div class="section" id="id7">
+<h2>最小化层数<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>需要掌握号Dockerfile的可读性和文件系统层数之间的平衡。控制文件系统层数的时候会降低Dockerfile的可读性。而Dockerfile可读性高的时候，往往会导致更多的文件系统层数。</div></blockquote>
+</div>
+<div class="section" id="id8">
+<h2>使用小型基础镜像<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">debian:jessie</span></tt> 基础镜像足够小并且没有包含任何不需要的包。</div></blockquote>
+</div>
+<div class="section" id="id9">
+<h2>使用特定标签<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>Dockerfile中 <tt class="docutils literal"><span class="pre">FROM</span></tt> 应始终包含依赖的基础镜像的完整仓库名和标签，如使用 <tt class="docutils literal"><span class="pre">FROM</span> <span class="pre">debian:jessie</span></tt> 而不是 <tt class="docutils literal"><span class="pre">FROM</span> <span class="pre">debian</span></tt> 。</div></blockquote>
+</div>
+<div class="section" id="id10">
+<h2>多行参数顺序<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p><tt class="docutils literal"><span class="pre">apt-get</span> <span class="pre">update</span></tt> 应与 <tt class="docutils literal"><span class="pre">apt-get</span> <span class="pre">install</span></tt> 组合，采取 <tt class="docutils literal"><span class="pre">\</span></tt> 进行多行安装。同时需要注意按照字母表顺序排序避免出现重复。</p>
+<div class="highlight-python"><div class="highlight"><pre>FROM debian:jessie
+
+RUN apt-get update &amp;&amp; apt-get install -y \
+
+build-essential\
+
+git \
+
+make \
+
+python \
+
+RUN dpkg-reconfigure locales &amp;&amp; \
+
+locale-gen C.UTF-8 &amp;&amp; \
+
+/usr/sbin/update-locale LANG=C.UTF-8
+
+ENV LC_ALL C.UTF-8
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="docker_dockerfile.html">Dockerfile</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="docker_in_action.html">Docker 案例 &#8211; 搭建工作流</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2015, chufuyuan.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

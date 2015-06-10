@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>screen 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="None" href="index.html#document-index" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="index.html#document-index">screen 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="toctree-wrapper compound">
+</div>
+<div class="section" id="screen">
+<h1>screen  用法简介<a class="headerlink" href="#screen" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><em>你是不是经常需要远程登录到Linux服务器？你是不是经常为一些长时间运行的任务头疼？还在用 nohup 吗？那么来看看 screen 吧，它会给你一个惊喜！</em></p>
+<p><em>Screen是一个可以在多个进程之间多路复用一个物理终端的窗口管理器。Screen中有会话的概念，用户可以在一个screen会话中创建多个screen窗口，在每一个screen窗口中就像操作一个真实的telnet/SSH连接窗口那样。</em></p>
+</div></blockquote>
+<div class="section" id="id1">
+<h2>一、screen功能<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>会话恢复</li>
+<li>会话共享</li>
+<li>多窗口</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>二、screen参数<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>screen -ls  <em>列出正在运行的screen</em></li>
+<li>screen -S name <em>启动screen的时候以name作为名称</em></li>
+<li>-d <em>将指定的screen作业离线（Detach）</em></li>
+<li>screen -r name或pid <em>进入之前断开的screen</em></li>
+<li>screen -d -r name <em>强抢一个已经存在的screen</em></li>
+<li>screen -x name <em>进入没有断开的screen，这样可以让一个人操作，另外一个人可以看到他的全部操作</em></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>三、screen 多窗口管理<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>每个screen的session中，所有命令都是ctrl+a开头</div></blockquote>
+<ul class="simple">
+<li>C-a  c     ==&gt;  在当前screen中创建一个新的shell窗口</li>
+<li>C-a  n     ==&gt;  切换到下一个window</li>
+<li>C-a  p     ==&gt;  切换到上一个window</li>
+<li>C-a  0...9 ==&gt;  切换到第0...9个window</li>
+<li>C-a  [space] ==&gt;  由第0个window循环切换到第9个window</li>
+<li>C-a  C-a   ==&gt;  在两个最近使用的window之间切换</li>
+<li>C-a  x   ==&gt;  锁住当前window，需要密码解锁</li>
+<li>C-a  d   ==&gt;  dettach，离开当前session</li>
+<li>C-a  w  ==&gt;  显示所有窗口列表</li>
+<li>C-a  t   ==&gt;  显示当前时间以及系统load</li>
+<li>C-a  k   ==&gt;  强制关闭当前window</li>
+<li>C-a  S   ==&gt;  水平分屏</li>
+<li>C-a  [TAB]  ==&gt;  下一屏，分屏后需要C-a c 新建窗口后方可使用</li>
+</ul>
+</div>
+<div class="section" id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
+<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
+<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html#document-index">Table Of Contents</a></h3>
+  <ul class="simple">
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="index.html#document-index">screen 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Alex.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
